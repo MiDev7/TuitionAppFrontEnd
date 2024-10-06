@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Vue.js v-for, Computed, and Methods Example</title>
+    <!-- Include Vue.js from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h1>Shopping List</h1>
+      <input v-model="newItemName" placeholder="Item name" />
+      <input
+        v-model.number="newItemQuantity"
+        type="number"
+        min="1"
+        placeholder="Quantity"
+      />
+      <button @click="addItem">Add Item</button>
+      <ul>
+        <li v-for="(item, index) in items" :key="item.id">
+          {{ item.name }} - {{ item.quantity }} pcs
+          <!-- Button to remove an item -->
+          <button @click="removeItem(index)">Remove</button>
+        </li>
+      </ul>
+      <p>Total items: {{ totalItems }}</p>
+    </div>
+
+    <script>
+      // Create a new Vue instance
+      new Vue({
+        el: "#app",
+        data: {
+          items: [
+            { id: 1, name: "Apples", quantity: 5 },
+            { id: 2, name: "Oranges", quantity: 3 },
+            { id: 3, name: "Bananas", quantity: 7 },
+          ],
+          newItemName: "",
+          newItemQuantity: 1,
+          nextId: 4,
+        },
+        computed: {
+          // Compute the total number of items
+          totalItems: function () {
+            return this.items.reduce(function (sum, item) {
+              return sum + item.quantity;
+            }, 0);
+          },
+        },
+        methods: {
+          // Method to add a new item to the list
+          addItem: function () {
+            if (this.newItemName.trim() !== "" && this.newItemQuantity > 0) {
+              this.items.push({
+                id: this.nextId++,
+                name: this.newItemName.trim(),
+                quantity: this.newItemQuantity,
+              });
+              // Reset the input fields
+              this.newItemName = "";
+              this.newItemQuantity = 1;
+            }
+          },
+          // Method to remove an item from the list
+          removeItem: function (index) {
+            this.items.splice(index, 1);
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

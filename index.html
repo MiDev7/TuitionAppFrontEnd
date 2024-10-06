@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tuition</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <nav>
+        <ul id="nav-lists">
+          <li class="nav-item"><a href="index.html">Home</a></li>
+          <li class="nav-item"><a href="about.html">About</a></li>
+          <li class="nav-item"><a href="contact.html">Contact</a></li>
+          <button @click="ToggleSectionChange">{{buttonName}}</button>
+        </ul>
+      </nav>
+      <main>
+        <div class="sidebar">
+          <h3>Sort By</h3>
+          <form action="#" id="sort">
+            <div>
+              <input type="radio" id="subject" name="sort" value="subject" />
+              <label for="subject">Subject</label>
+            </div>
+            <div>
+              <input type="radio" id="Location" name="sort" value="location" />
+              <label for="Location">Location</label>
+            </div>
+            <div>
+              <input type="radio" id="Price" name="sort" value="price" />
+              <label for="Price">Price</label>
+            </div>
+            <div>
+              <input
+                type="radio"
+                id="availability"
+                name="sort"
+                value="availability"
+              />
+              <label for="availability">Availability</label>
+            </div>
+          </form>
+          <br />
+          <h3>Order By</h3>
+          <form action="#">
+            <div>
+              <input
+                type="radio"
+                id="ascending"
+                name="order"
+                value="ascending"
+              />
+              <label for="ascending">Ascending</label>
+            </div>
+            <div>
+              <input
+                type="radio"
+                id="descending"
+                name="order"
+                value="descending"
+              />
+              <label for="descending">Descending</label>
+            </div>
+          </form>
+        </div>
+        <section class="content">
+          <div id="store">
+            <h1 class="title">{{ title }}</h1>
+            <div class="grid-container">
+              <div class="card" v-for="after in classes" :key="after.subject">
+                <div class="card-content">
+                  <div>
+                    <p>Subject: {{after.subject}}</p>
+                    <p>Location: {{after.location}}</p>
+                    <p>Price: {{after.price}}</p>
+                    <p>Space: {{after.space}}</p>
+                  </div>
+                  <div>
+                    <img
+                      :src="ImageLink(after.subject)"
+                      alt="text"
+                      width="100%"
+                      height="100%"
+                    />
+                  </div>
+                </div>
+                <button id="addToCart" @click="AddToCart(after)">
+                  Add To Cart
+                </button>
+              </div>
+            </div>
+          </div>
+          <div id="checkout">
+            <h1 class="title">{{title}}</h1>
+            <div class="grid-container">
+              <div class="card" v-for="after in cart" :key="after.subject">
+                <div class="card-content">
+                  <div>
+                    <p>Subject: {{after.subject}}</p>
+                    <p>Location: {{after.location}}</p>
+                    <p>Price: {{after.price}}</p>
+                    <p>Space: {{after.space}}</p>
+                  </div>
+                  <div>
+                    <img
+                      :src="ImageLink(after.subject)"
+                      alt="text"
+                      width="100%"
+                      height="100%"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="search-result"></div>
+        </section>
+      </main>
+    </div>
+    <script type="module" src="index.js"></script>
+  </body>
+</html>
