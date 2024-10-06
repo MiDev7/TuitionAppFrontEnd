@@ -20,6 +20,10 @@ const app = new Vue({
     selectedValue: "subject",
     selectedSortOrder: "ascending",
     title: "Shop",
+    name: "",
+    nameError: "",
+    phone: "",
+    phoneError: "",
     cart: [],
     classes: [
       {
@@ -44,6 +48,7 @@ const app = new Vue({
         space: "5",
       },
     ],
+    checkoutBtn: true,
   },
   methods: {
     AddToCart: function (subject) {
@@ -124,8 +129,45 @@ const app = new Vue({
         this.classes.sort((a, b) => sortOrder * criteria(a, b));
       }
     },
+    Checkout: function () {
+      if (this.checkoutBtn === false) {
+        this.cart = [];
+        this.title = "Shop";
+        alert("Checkout successful");
+      }
+    },
+    validation: function () {
+      this.nameError = "";
+      this.phoneError = "";
+      this.checkoutBtn = false;
+      const regexText = new RegExp("^[a-zA-Z]*$");
+      const regexNum = new RegExp("^[0-9]*$");
+      if (this.name.length === 0) {
+        this.nameError = "Name is required";
+        this.checkoutBtn = true;
+      }
+      if (this.phone.length === 0) {
+        this.phoneError = "Phone is required";
+        this.checkoutBtn = true;
+      }
+      if (this.name.length > 0) {
+        if (regexText.test(this.name) === false) {
+          this.nameError = "Name must be alphabetic";
+          this.checkoutBtn = true;
+        }
+      }
+      if (this.phone.length > 0) {
+        if (regexNum.test(this.phone) === false) {
+          this.phoneError = "Phone number must be numeric";
+          this.checkoutBtn = true;
+        }
+      }
+    },
   },
   computed: {
+    total: function () {
+      return this.cart.reduce((acc, item) => acc + item.price * item.space, 0);
+    },
     buttonName: function () {
       if (this.title === "Shop") {
         return "Cart";
@@ -136,5 +178,7 @@ const app = new Vue({
   watch: {
     selectedValue: "sortClasses",
     selectedSortOrder: "sortClasses",
+    name: "validation",
+    phone: "validation",
   },
 });

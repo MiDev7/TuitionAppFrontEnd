@@ -149,6 +149,42 @@
                 </button>
               </div>
             </div>
+            <div>
+              <h2 style="margin-block: 10px">Checkout</h2>
+              <div>
+                <p>Total: £{{total}}</p>
+                <div id="checkout-form">
+                  <div class="checkout-form-input">
+                    <label for="name">Name:</label>
+                    <input
+                      id="name"
+                      type="text"
+                      v-model="name"
+                      placeholder="Enter your name"
+                    />
+                    <small v-if="nameError" class="errorMessage"
+                      >{{nameError}}</small
+                    >
+                  </div>
+                  <div class="checkout-form-input">
+                    <label for="number">Phone:</label>
+                    <input
+                      id="number"
+                      type="text"
+                      v-model="phone"
+                      placeholder="Enter your phone number"
+                      maxlength="8"
+                    />
+                    <small v-if="phoneError" class="errorMessage"
+                      >{{phoneError}}</small
+                    >
+                  </div>
+                </div>
+                <button @click="Checkout" :disabled="checkoutBtn">
+                  Checkout
+                </button>
+              </div>
+            </div>
           </div>
           <div id="search-result"></div>
         </section>
