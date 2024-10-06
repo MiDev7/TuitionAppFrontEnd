@@ -21,13 +21,21 @@ const app = new Vue({
     cart: [],
     classes: [
       {
+        id: 1,
         subject: "Math",
         location: "London",
         price: "£320",
         space: "5",
       },
-      { subject: "English", location: "London", price: "£320", space: "5" },
       {
+        id: 2,
+        subject: "English",
+        location: "London",
+        price: "£320",
+        space: "5",
+      },
+      {
+        id: 3,
         subject: "Chemistry",
         location: "London",
         price: "£320",
@@ -37,13 +45,18 @@ const app = new Vue({
   },
   methods: {
     AddToCart: function (subject) {
-      if (subject.space == 1) {
-        this.classes = this.classes.filter(
-          (c) => c.subject !== subject.subject
-        );
-      }
       subject.space = subject.space - 1;
-      this.cart.push(subject);
+
+      let newClass = { ...subject };
+
+      let cartItem = this.cart.find((item) => item.id === newClass.id);
+
+      if (cartItem) {
+        cartItem.space++;
+      } else {
+        newClass.space = 1;
+        this.cart.push(newClass);
+      }
     },
     ImageLink: function (subject) {
       switch (subject) {
@@ -68,16 +81,9 @@ const app = new Vue({
       }
     },
     ToggleSectionChange: function () {
-      const store = document.querySelector("#store");
-      const checkout = document.querySelector("#checkout");
-
       if (this.title === "Shop") {
-        store.style.display = "none";
-        checkout.style.display = "block";
-        this.title = "Checkout";
-      } else if (this.title === "Checkout") {
-        store.style.display = "block";
-        checkout.style.display = "none";
+        this.title = "Cart";
+      } else if (this.title === "Cart") {
         this.title = "Shop";
       }
     },
@@ -85,7 +91,7 @@ const app = new Vue({
   computed: {
     buttonName: function () {
       if (this.title === "Shop") {
-        return "Checkout";
+        return "Cart";
       }
       return "Shop";
     },

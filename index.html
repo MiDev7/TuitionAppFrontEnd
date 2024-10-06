@@ -67,7 +67,7 @@
           </form>
         </div>
         <section class="content">
-          <div id="store">
+          <div id="store" v-if="title === 'Shop'">
             <h1 class="title">{{ title }}</h1>
             <div class="grid-container">
               <div class="card" v-for="after in classes" :key="after.subject">
@@ -87,13 +87,17 @@
                     />
                   </div>
                 </div>
-                <button id="addToCart" @click="AddToCart(after)">
+                <button
+                  id="addToCart"
+                  @click="AddToCart(after)"
+                  :disabled="after.space === 0"
+                >
                   Add To Cart
                 </button>
               </div>
             </div>
           </div>
-          <div id="checkout">
+          <div v-else-if="title === 'Cart' ">
             <h1 class="title">{{title}}</h1>
             <div class="grid-container">
               <div class="card" v-for="after in cart" :key="after.subject">

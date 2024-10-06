@@ -123,6 +123,10 @@ button:active {
     transform: scale(0.95);
 }
 
+button:disabled {
+    background-color: #8dacc5;
+}
+
 .title {
     padding-bottom: 10px;
 }
