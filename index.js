@@ -17,6 +17,8 @@ const imageLink = {
 const app = new Vue({
   el: "#app",
   data: {
+    selectedValue: "subject",
+    selectedSortOrder: "ascending",
     title: "Shop",
     cart: [],
     classes: [
@@ -24,21 +26,21 @@ const app = new Vue({
         id: 1,
         subject: "Math",
         location: "London",
-        price: "£320",
+        price: "320",
         space: "5",
       },
       {
         id: 2,
         subject: "English",
         location: "London",
-        price: "£320",
+        price: "320",
         space: "5",
       },
       {
         id: 3,
         subject: "Chemistry",
         location: "London",
-        price: "£320",
+        price: "320",
         space: "5",
       },
     ],
@@ -87,6 +89,21 @@ const app = new Vue({
         this.title = "Shop";
       }
     },
+    sortClasses() {
+      const sortCriteria = {
+        subject: (a, b) => a.subject.localeCompare(b.subject),
+        location: (a, b) => a.location.localeCompare(b.location),
+        price: (a, b) => a.price - b.price,
+        availability: (a, b) => a.space - b.space,
+      };
+
+      const sortOrder = this.selectedSortOrder === "ascending" ? 1 : -1;
+      const criteria = sortCriteria[this.selectedValue];
+
+      if (criteria) {
+        this.classes.sort((a, b) => sortOrder * criteria(a, b));
+      }
+    },
   },
   computed: {
     buttonName: function () {
@@ -95,5 +112,9 @@ const app = new Vue({
       }
       return "Shop";
     },
+  },
+  watch: {
+    selectedValue: "sortClasses",
+    selectedSortOrder: "sortClasses",
   },
 });
