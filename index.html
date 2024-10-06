@@ -140,6 +140,13 @@
                     />
                   </div>
                 </div>
+                <button
+                  id="removeToCart"
+                  @click="RemoveToCart(after)"
+                  :disabled="after.space === 0"
+                >
+                  Remove
+                </button>
               </div>
             </div>
           </div>

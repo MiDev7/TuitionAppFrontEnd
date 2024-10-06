@@ -60,6 +60,26 @@ const app = new Vue({
         this.cart.push(newClass);
       }
     },
+    RemoveToCart: function (subject) {
+      this.cart.forEach((element) => {
+        if (element.id === subject.id) {
+          element.space--;
+          if (element.space === 0) {
+            this.cart = this.cart.filter((item) => item.id !== element.id);
+          }
+        }
+      });
+
+      this.classes.forEach((element) => {
+        if (element.id === subject.id) {
+          element.space++;
+        }
+      });
+
+      if (this.cart.length === 0) {
+        this.title = "Shop";
+      }
+    },
     ImageLink: function (subject) {
       switch (subject) {
         case "Math":
