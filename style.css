@@ -95,6 +95,8 @@ main {
 
 .card-content {
     display: flex;
+    height: 150px;
+
 }
 
 .card-content div {

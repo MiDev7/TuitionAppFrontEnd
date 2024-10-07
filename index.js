@@ -25,58 +25,38 @@ const app = new Vue({
     phone: "",
     phoneError: "",
     cart: [],
-    classes: [
-      {
-        id: 1,
-        subject: "Math",
-        location: "London",
-        price: "320",
-        space: "5",
-      },
-      {
-        id: 2,
-        subject: "English",
-        location: "London",
-        price: "320",
-        space: "5",
-      },
-      {
-        id: 3,
-        subject: "Chemistry",
-        location: "London",
-        price: "320",
-        space: "5",
-      },
-    ],
+    classes: [],
     checkoutBtn: true,
   },
   methods: {
-    AddToCart: function (subject) {
+    AddToCart: async function (subject) {
       subject.space = subject.space - 1;
 
       let newClass = { ...subject };
 
-      let cartItem = this.cart.find((item) => item.id === newClass.id);
+      let cartItem = this.cart.find((item) => item._id === newClass._id);
 
       if (cartItem) {
         cartItem.space++;
       } else {
         newClass.space = 1;
+
         this.cart.push(newClass);
       }
     },
     RemoveToCart: function (subject) {
       this.cart.forEach((element) => {
-        if (element.id === subject.id) {
+        if (element._id === subject._id) {
           element.space--;
+
           if (element.space === 0) {
-            this.cart = this.cart.filter((item) => item.id !== element.id);
+            this.cart = this.cart.filter((item) => item._id !== element._id);
           }
         }
       });
 
       this.classes.forEach((element) => {
-        if (element.id === subject.id) {
+        if (element._id === subject._id) {
           element.space++;
         }
       });
@@ -131,9 +111,42 @@ const app = new Vue({
     },
     Checkout: function () {
       if (this.checkoutBtn === false) {
-        this.cart = [];
-        this.title = "Shop";
-        alert("Checkout successful");
+        const postCheckout = async () => {
+          try {
+            const response = await fetch(
+              "http://localhost:3000/classes/checkout",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  name: this.name,
+                  phone: this.phone,
+                  date: new Date().toISOString(),
+                  total: this.total,
+                  cart: this.cart,
+                }),
+              }
+            );
+
+            const data = await response.json();
+            if (data.message === "Class already booked with that name") {
+              alert("Class already booked with that name");
+              this.name = "";
+              this.phone = "";
+              this.checkoutBtn = true;
+            } else {
+              this.cart = [];
+              this.title = "Shop";
+              alert("Checkout successful");
+            }
+          } catch (error) {
+            alert("Checkout failed");
+            console.error(error);
+          }
+        };
+        postCheckout();
       }
     },
     validation: function () {
@@ -180,5 +193,24 @@ const app = new Vue({
     selectedSortOrder: "sortClasses",
     name: "validation",
     phone: "validation",
+  },
+  mounted: function () {
+    this.sortClasses();
+
+    const load = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/classes", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const data = await response.json();
+        this.classes = data;
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    load();
   },
 });
