@@ -92,7 +92,65 @@
         <section class="content">
           <div id="store" v-if="title === 'Shop'">
             <h1 class="title">{{ title }}</h1>
-            <div class="grid-container">
+            <!-- Search section -->
+            <div id="search">
+              <div style="width: 100%; display: flex; margin-block: 10px">
+                <input
+                  type="text"
+                  v-model="searchQuery"
+                  placeholder="Search for a subject"
+                  style="
+                    flex: 4;
+                    border-radius: 10px 0px 0px 10px;
+                    height: 35px;
+                  "
+                />
+                <button
+                  @click="search"
+                  style="
+                    flex: 1;
+                    border-radius: 0px 10px 10px 0px;
+                    height: 35px;
+                  "
+                >
+                  Search
+                </button>
+              </div>
+              <div class="grid-container" id="searchResult" v-if="searchMode">
+                <div
+                  class="card"
+                  v-for="after in searchResult"
+                  :key="after.subject"
+                  v-if="!noResult"
+                >
+                  <div class="card-content">
+                    <div>
+                      <p>Subject: {{after.subject}}</p>
+                      <p>Location: {{after.location}}</p>
+                      <p>Price: £{{after.price}}</p>
+                      <p>Space: {{after.space}}</p>
+                    </div>
+                    <div>
+                      <img
+                        :src="ImageLink(after.subject)"
+                        alt="text"
+                        width="100%"
+                        height="100%"
+                      />
+                    </div>
+                  </div>
+                  <button
+                    id="addToCart"
+                    @click="AddToCart(after)"
+                    :disabled="after.space === 0"
+                  >
+                    Add To Cart
+                  </button>
+                </div>
+                <div v-if="noResult">No Result Found</div>
+              </div>
+            </div>
+            <div class="grid-container" v-if="!searchMode">
               <div class="card" v-for="after in classes" :key="after.subject">
                 <div class="card-content">
                   <div>

@@ -27,6 +27,10 @@ const app = new Vue({
     cart: [],
     classes: [],
     checkoutBtn: true,
+    searchResult: [],
+    searchQuery: "",
+    searchMode: false,
+    noResult: false,
   },
   methods: {
     AddToCart: async function (subject) {
@@ -107,6 +111,7 @@ const app = new Vue({
 
       if (criteria) {
         this.classes.sort((a, b) => sortOrder * criteria(a, b));
+        this.searchResult.sort((a, b) => sortOrder * criteria(a, b));
       }
     },
     Checkout: function () {
@@ -176,6 +181,7 @@ const app = new Vue({
         }
       }
     },
+    search: function () {},
   },
   computed: {
     total: function () {
@@ -193,6 +199,32 @@ const app = new Vue({
     selectedSortOrder: "sortClasses",
     name: "validation",
     phone: "validation",
+    searchQuery: async function () {
+      try {
+        if (this.searchQuery !== "") {
+          this.searchMode = true;
+          const response = await fetch(
+            `http://localhost:3000/classes/search?search=${this.searchQuery.toString()}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          const data = await response.json();
+
+          if (data.length === 0) {
+            this.noResult = true;
+          } else {
+            this.noResult = false;
+            this.searchResult = data;
+          }
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    },
   },
   mounted: function () {
     this.sortClasses();
