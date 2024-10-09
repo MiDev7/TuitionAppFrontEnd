@@ -118,8 +118,31 @@ const app = new Vue({
       if (this.checkoutBtn === false) {
         const postCheckout = async () => {
           try {
+            this.cart.forEach((item) => {
+              this.classes.forEach(async (element) => {
+                if (element._id === item._id) {
+                  await fetch(
+                    `https://tutorialappbackend.onrender.com/lesson`,
+                    {
+                      method: "PUT",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify({
+                        _id: element._id,
+                        subject: element.subject,
+                        location: element.location,
+                        price: element.price,
+                        space: element.space,
+                      }),
+                    }
+                  );
+                }
+              });
+            });
+
             const response = await fetch(
-              "http://localhost:3000/classes/checkout",
+              "https://tutorialappbackend.onrender.com/order",
               {
                 method: "POST",
                 headers: {
@@ -204,7 +227,7 @@ const app = new Vue({
         if (this.searchQuery !== "") {
           this.searchMode = true;
           const response = await fetch(
-            `http://localhost:3000/classes/search?search=${this.searchQuery.toString()}`,
+            `https://tutorialappbackend.onrender.com/search?search=${this.searchQuery.toString()}`,
             {
               method: "GET",
               headers: {
@@ -231,13 +254,17 @@ const app = new Vue({
 
     const load = async () => {
       try {
-        const response = await fetch("http://localhost:3000/classes", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await fetch(
+          "https://tutorialappbackend.onrender.com/lessons",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
         const data = await response.json();
+        console.log(data);
         this.classes = data;
       } catch (error) {
         console.error(error);
