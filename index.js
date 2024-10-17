@@ -140,7 +140,6 @@ const app = new Vue({
                 }
               });
             });
-
             const response = await fetch(
               "https://tutorialappbackend.onrender.com/order",
               {
@@ -264,7 +263,6 @@ const app = new Vue({
           }
         );
         const data = await response.json();
-        console.log(data);
         this.classes = data;
       } catch (error) {
         console.error(error);
