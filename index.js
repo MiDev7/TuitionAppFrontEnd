@@ -10,7 +10,8 @@ const imageLink = {
     "https://as2.ftcdn.net/v2/jpg/02/80/12/65/1000_F_280126582_Ig4OLIbbSryXwe2S63aBu2TKY0Bj9WjH.jpg",
   history:
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwHrywq-qhKrn_w3Q1u4aVmek2QVcP2VuN8g&s",
-  geography: "https://dcea.org.uk/parent-information/our-curriculum/subjects/geography/",
+  geography:
+    "https://dcea.org.uk/parent-information/our-curriculum/subjects/geography/",
   french: "",
 };
 
@@ -21,14 +22,17 @@ const app = new Vue({
     selectedSortOrder: "ascending",
     title: "Shop",
     name: "",
-    nameError: "",
     phone: "",
-    phoneError: "",
+    email: "",
     cart: [],
     classes: [],
     checkoutBtn: true,
     searchResult: [],
     searchQuery: "",
+    // Errors
+    phoneError: "",
+    nameError: "",
+    emailError: "",
     searchMode: false,
     noResult: false,
   },
@@ -179,9 +183,13 @@ const app = new Vue({
     validation: function () {
       this.nameError = "";
       this.phoneError = "";
+      this.emailError = "";
       this.checkoutBtn = false;
       const regexText = new RegExp("^[a-zA-Z]*$");
       const regexNum = new RegExp("^[0-9]*$");
+      const regexEmail = new RegExp(
+        "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$"
+      );
       if (this.name.length === 0) {
         this.nameError = "Name is required";
         this.checkoutBtn = true;
@@ -202,6 +210,25 @@ const app = new Vue({
           this.checkoutBtn = true;
         }
       }
+      if (this.email.length === 0) {
+        this.emailError = "Email is required";
+        this.checkoutBtn = true;
+      }
+
+      if (this.email.length > 0) {
+        if (regexEmail.test(this.email) === false) {
+          this.emailError = "Email must be valid";
+          this.checkoutBtn = true;
+        }
+      }
+
+      if (
+        this.nameError === "" &&
+        this.phoneError === "" &&
+        this.emailError === ""
+      ) {
+        this.checkoutBtn = false;
+      }
     },
     search: function () {},
   },
@@ -215,12 +242,45 @@ const app = new Vue({
       }
       return "Shop";
     },
+    // phoneError: function () {
+    //   const regexNum = new RegExp("^[0-9]*$");
+    //   if (this.phone.length === 0) {
+    //     return "Phone is required";
+    //   }
+    //   if (regexNum.test(this.phone) === false) {
+    //     return "Phone number must be numeric";
+    //   }
+
+    //   return "";
+    // },
+
+    // nameError: function () {
+    //   const regexText = new RegExp("^[a-zA-Z]*$");
+    //   if (this.name.length === 0) {
+    //     return "Name is required";
+    //   }
+    //   if (regexText.test(this.name) === false) {
+    //     return "Name must be alphabetic";
+    //   }
+
+    //   return "";
+    // },
+    // emailError: function () {
+    //   const regexEmail = new RegExp(
+    //     "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$"
+    //   );
+    //   if (this.email.length === 0) {
+    //     return "Email is required";
+    //   }
+    //   if (regexEmail.test(this.email) === false) {
+    //     return "Email must be valid";
+    //   }
+    //   return "";
+    // },
   },
   watch: {
     selectedValue: "sortClasses",
     selectedSortOrder: "sortClasses",
-    name: "validation",
-    phone: "validation",
     searchQuery: async function () {
       try {
         if (this.searchQuery !== "") {

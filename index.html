@@ -124,7 +124,7 @@
                 <div
                   class="card"
                   v-for="after in searchResult"
-                  :key="after.subject"
+                  :key="after._id"
                   v-if="!noResult"
                 >
                   <div class="card-content">
@@ -155,7 +155,7 @@
               </div>
             </div>
             <div class="grid-container" v-if="!searchMode">
-              <div class="card" v-for="after in classes" :key="after.subject">
+              <div class="card" v-for="after in classes" :key="after._id">
                 <div class="card-content">
                   <div>
                     <p>Subject: {{after.subject}}</p>
@@ -185,7 +185,7 @@
           <div v-else-if="title === 'Cart' ">
             <h1 class="title">{{title}}</h1>
             <div class="grid-container">
-              <div class="card" v-for="after in cart" :key="after.subject">
+              <div class="card" v-for="after in cart" :key="after._id">
                 <div class="card-content">
                   <div>
                     <p>Subject: {{after.subject}}</p>
@@ -224,6 +224,7 @@
                       type="text"
                       v-model="name"
                       placeholder="Enter your name"
+                      @input="validation"
                     />
                     <small v-if="nameError" class="errorMessage"
                       >{{nameError}}</small
@@ -237,12 +238,13 @@
                       type="text"
                       v-model="phone"
                       placeholder="Enter your phone number"
-                      maxlength="8"
+                      @input="validation"
                     />
                     <small v-if="phoneError" class="errorMessage"
                       >{{phoneError}}</small
                     >
                   </div>
+                  <!-- Email Input Field -->
                   <div class="checkout-form-input">
                     <label for="email">Email:</label>
                     <input
@@ -250,9 +252,10 @@
                       type="text"
                       v-model="email"
                       placeholder="Enter your email"
+                      @input="validation"
                     />
-                    <small v-if="phoneError" class="errorMessage"
-                      >{{phoneError}}</small
+                    <small v-if="emailError" class="errorMessage"
+                      >{{emailError}}</small
                     >
                   </div>
                 </div>
