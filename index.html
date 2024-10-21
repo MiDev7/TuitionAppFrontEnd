@@ -34,6 +34,7 @@
                 name="sort"
                 value="subject"
                 v-model="selectedValue"
+                @change="sortClasses"
               />
               <label for="subject">Subject</label>
             </div>
@@ -44,6 +45,7 @@
                 name="sort"
                 value="location"
                 v-model="selectedValue"
+                @change="sortClasses"
               />
               <label for="Location">Location</label>
             </div>
@@ -54,6 +56,7 @@
                 name="sort"
                 value="price"
                 v-model="selectedValue"
+                @change="sortClasses"
               />
               <label for="Price">Price</label>
             </div>
@@ -64,6 +67,7 @@
                 name="sort"
                 value="availability"
                 v-model="selectedValue"
+                @change="sortClasses"
               />
               <label for="availability">Availability</label>
             </div>
@@ -78,6 +82,7 @@
                 name="order"
                 value="ascending"
                 v-model="selectedSortOrder"
+                @change="sortClasses"
               />
               <label for="ascending">Ascending</label>
             </div>
@@ -88,6 +93,7 @@
                 name="order"
                 value="descending"
                 v-model="selectedSortOrder"
+                @change="sortClasses"
               />
               <label for="descending">Descending</label>
             </div>

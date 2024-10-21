@@ -242,45 +242,8 @@ const app = new Vue({
       }
       return "Shop";
     },
-    // phoneError: function () {
-    //   const regexNum = new RegExp("^[0-9]*$");
-    //   if (this.phone.length === 0) {
-    //     return "Phone is required";
-    //   }
-    //   if (regexNum.test(this.phone) === false) {
-    //     return "Phone number must be numeric";
-    //   }
-
-    //   return "";
-    // },
-
-    // nameError: function () {
-    //   const regexText = new RegExp("^[a-zA-Z]*$");
-    //   if (this.name.length === 0) {
-    //     return "Name is required";
-    //   }
-    //   if (regexText.test(this.name) === false) {
-    //     return "Name must be alphabetic";
-    //   }
-
-    //   return "";
-    // },
-    // emailError: function () {
-    //   const regexEmail = new RegExp(
-    //     "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$"
-    //   );
-    //   if (this.email.length === 0) {
-    //     return "Email is required";
-    //   }
-    //   if (regexEmail.test(this.email) === false) {
-    //     return "Email must be valid";
-    //   }
-    //   return "";
-    // },
   },
   watch: {
-    selectedValue: "sortClasses",
-    selectedSortOrder: "sortClasses",
     searchQuery: async function () {
       try {
         if (this.searchQuery !== "") {
