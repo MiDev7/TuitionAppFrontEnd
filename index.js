@@ -230,21 +230,7 @@ const app = new Vue({
         this.checkoutBtn = false;
       }
     },
-    search: function () {},
-  },
-  computed: {
-    total: function () {
-      return this.cart.reduce((acc, item) => acc + item.price * item.space, 0);
-    },
-    buttonName: function () {
-      if (this.title === "Shop") {
-        return "Cart";
-      }
-      return "Shop";
-    },
-  },
-  watch: {
-    searchQuery: async function () {
+    search: async function () {
       try {
         if (this.searchQuery !== "") {
           this.searchMode = true;
@@ -269,6 +255,17 @@ const app = new Vue({
       } catch (error) {
         console.error(error);
       }
+    },
+  },
+  computed: {
+    total: function () {
+      return this.cart.reduce((acc, item) => acc + item.price * item.space, 0);
+    },
+    buttonName: function () {
+      if (this.title === "Shop") {
+        return "Cart";
+      }
+      return "Shop";
     },
   },
   mounted: function () {
