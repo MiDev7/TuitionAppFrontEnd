@@ -10,7 +10,7 @@ const imageLink = {
     "https://as2.ftcdn.net/v2/jpg/02/80/12/65/1000_F_280126582_Ig4OLIbbSryXwe2S63aBu2TKY0Bj9WjH.jpg",
   history:
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwHrywq-qhKrn_w3Q1u4aVmek2QVcP2VuN8g&s",
-  geography: "",
+  geography: "https://dcea.org.uk/parent-information/our-curriculum/subjects/geography/",
   french: "",
 };
 

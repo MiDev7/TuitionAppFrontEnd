@@ -215,6 +215,7 @@
               <h2 style="margin-block: 10px">Checkout</h2>
               <div>
                 <p>Total: £{{total}}</p>
+                <!-- Name Input Field -->
                 <div id="checkout-form">
                   <div class="checkout-form-input">
                     <label for="name">Name:</label>
@@ -228,6 +229,7 @@
                       >{{nameError}}</small
                     >
                   </div>
+                  <!-- Phone Number Input Field -->
                   <div class="checkout-form-input">
                     <label for="number">Phone:</label>
                     <input
@@ -236,6 +238,18 @@
                       v-model="phone"
                       placeholder="Enter your phone number"
                       maxlength="8"
+                    />
+                    <small v-if="phoneError" class="errorMessage"
+                      >{{phoneError}}</small
+                    >
+                  </div>
+                  <div class="checkout-form-input">
+                    <label for="email">Email:</label>
+                    <input
+                      id="email"
+                      type="text"
+                      v-model="email"
+                      placeholder="Enter your email"
                     />
                     <small v-if="phoneError" class="errorMessage"
                       >{{phoneError}}</small
