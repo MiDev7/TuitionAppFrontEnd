@@ -269,17 +269,76 @@
                       >{{emailError}}</small
                     >
                   </div>
+                  <!-- Address Input Field -->
+                  <div class="checkout-form-input">
+                    <label for="address">Address:</label>
+                    <input
+                      id="address"
+                      type="text"
+                      v-model="address"
+                      placeholder="Enter your address"
+                      @input="validation"
+                    />
+                    <small v-if="addressError" class="errorMessage"
+                      >{{addressError}}</small
+                    >
+                  </div>
+                  <button @click="Checkout" :disabled="checkoutBtn">
+                    Checkout
+                  </button>
                 </div>
-                <button @click="Checkout" :disabled="checkoutBtn">
-                  Checkout
-                </button>
               </div>
             </div>
           </div>
           <div id="search-result"></div>
         </section>
       </main>
+      <div id="modal">
+        <div class="receipt-container">
+          <div class="receipt-header">
+            <h1>Receipt {{new Date().toLocaleString()}}</h1>
+            <div class="receipt-header-container">
+              <div>
+                <p>Name: {{name}}</p>
+                <p>Phone Number: {{phone}}</p>
+              </div>
+              <div>
+                <p>Email: {{email}}</p>
+                <p>Address: {{address}}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="receipt-body">
+            <table>
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Quantity</th>
+                  <th>Price</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in cart" :key="item._id">
+                  <td>{{item.subject}}</td>
+                  <td>{{item.space}}</td>
+                  <td>{{item.price}}</td>
+                  <td>{{item.price * item.space}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div id="receipt-total">
+              <p>Total: Rs {{total}}</p>
+            </div>
+          </div>
+          <div class="receipt-footer">
+            <p>Thank you for shopping with us ✨</p>
+          </div>
+        </div>
+      </div>
     </div>
+
     <script type="module" src="index.js"></script>
   </body>
 </html>

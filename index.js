@@ -1,17 +1,11 @@
 const imageLink = {
   math: "https://tutorialappbackend.onrender.com/static/math.jpeg",
-  physics:
-    "https://tutorialappbackend.onrender.com/static/physics.png",
-  chemistry:
-    "https://tutorialappbackend.onrender.com/static/chemistry.jpeg",
-  biology:
-    "https://tutorialappbackend.onrender.com/static/biology.png",
-  english:
-    "https://tutorialappbackend.onrender.com/static/english.jpg",
-  history:
-    "hhttps://tutorialappbackend.onrender.com/static/history.jpeg",
-  geography:
-    "https://tutorialappbackend.onrender.com/static/geography.jpegs",
+  physics: "https://tutorialappbackend.onrender.com/static/physics.png",
+  chemistry: "https://tutorialappbackend.onrender.com/static/chemistry.jpeg",
+  biology: "https://tutorialappbackend.onrender.com/static/biology.png",
+  english: "https://tutorialappbackend.onrender.com/static/english.jpg",
+  history: "https://tutorialappbackend.onrender.com/static/history.jpeg",
+  geography: "https://tutorialappbackend.onrender.com/static/geography.jpeg",
   french: "",
 };
 
@@ -24,6 +18,7 @@ const app = new Vue({
     name: "",
     phone: "",
     email: "",
+    address: "",
     cart: [],
     classes: [],
     checkoutBtn: true,
@@ -33,6 +28,8 @@ const app = new Vue({
     phoneError: "",
     nameError: "",
     emailError: "",
+    addressError: "",
+    // Search
     searchMode: false,
     noResult: false,
   },
@@ -122,6 +119,7 @@ const app = new Vue({
       if (this.checkoutBtn === false) {
         const postCheckout = async () => {
           try {
+            // Update class space
             this.cart.forEach((item) => {
               this.classes.forEach(async (element) => {
                 if (element._id === item._id) {
@@ -144,6 +142,8 @@ const app = new Vue({
                 }
               });
             });
+
+            // Post checkout
             const response = await fetch(
               "https://tutorialappbackend.onrender.com/order",
               {
@@ -154,6 +154,8 @@ const app = new Vue({
                 body: JSON.stringify({
                   name: this.name,
                   phone: this.phone,
+                  email: this.email,
+                  address: this.address,
                   date: new Date().toISOString(),
                   total: this.total,
                   cart: this.cart,
@@ -168,9 +170,17 @@ const app = new Vue({
               this.phone = "";
               this.checkoutBtn = true;
             } else {
-              this.cart = [];
               this.title = "Shop";
-              alert("Checkout successful");
+              let modal = document.querySelector("#modal");
+
+              modal.style.display = "block";
+
+              window.onclick = (event) => {
+                if (event.target === modal) {
+                  this.cart = [];
+                  modal.style.display = "none";
+                }
+              };
             }
           } catch (error) {
             alert("Checkout failed");
@@ -184,25 +194,30 @@ const app = new Vue({
       this.nameError = "";
       this.phoneError = "";
       this.emailError = "";
+      this.addressError = "";
       this.checkoutBtn = false;
       const regexText = new RegExp("^[a-zA-Z]*$");
       const regexNum = new RegExp("^[0-9]*$");
       const regexEmail = new RegExp(
         "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$"
       );
+      //* Name Validation
       if (this.name.length === 0) {
         this.nameError = "Name is required";
         this.checkoutBtn = true;
       }
-      if (this.phone.length === 0) {
-        this.phoneError = "Phone is required";
-        this.checkoutBtn = true;
-      }
+
       if (this.name.length > 0) {
         if (regexText.test(this.name) === false) {
           this.nameError = "Name must be alphabetic";
           this.checkoutBtn = true;
         }
+      }
+
+      //* Phone Validation
+      if (this.phone.length === 0) {
+        this.phoneError = "Phone is required";
+        this.checkoutBtn = true;
       }
       if (this.phone.length > 0) {
         if (regexNum.test(this.phone) === false) {
@@ -210,6 +225,7 @@ const app = new Vue({
           this.checkoutBtn = true;
         }
       }
+      //* Email validation
       if (this.email.length === 0) {
         this.emailError = "Email is required";
         this.checkoutBtn = true;
@@ -222,10 +238,17 @@ const app = new Vue({
         }
       }
 
+      //* Address validation
+      if (this.address.length === 0) {
+        this.addressError = "Address is required";
+        this.checkoutBtn = true;
+      }
+
       if (
         this.nameError === "" &&
         this.phoneError === "" &&
-        this.emailError === ""
+        this.emailError === "" &&
+        this.addressError === ""
       ) {
         this.checkoutBtn = false;
       }
