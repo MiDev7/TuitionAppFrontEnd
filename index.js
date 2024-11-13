@@ -1,17 +1,17 @@
 const imageLink = {
-  math: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE81m_cSZVahfLCxpBiumFDl6We1qPbDJXlg&s",
+  math: "https://tutorialappbackend.onrender.com/static/math.jpeg",
   physics:
-    "https://miro.medium.com/v2/resize:fit:1024/1*bWlRl9D3jkJR06_oO0cP_Q.png",
+    "https://tutorialappbackend.onrender.com/static/physics.png",
   chemistry:
-    "https://images.shiksha.com/mediadata/images/articles/1629702236phpPR4RUj.jpeg",
+    "https://tutorialappbackend.onrender.com/static/chemistry.jpeg",
   biology:
-    "https://img.freepik.com/premium-vector/biology-doodle-set-collection-hand-drawn-elements-science-biology-isolated-white-background_308665-1569.jpg",
+    "https://tutorialappbackend.onrender.com/static/biology.png",
   english:
-    "https://as2.ftcdn.net/v2/jpg/02/80/12/65/1000_F_280126582_Ig4OLIbbSryXwe2S63aBu2TKY0Bj9WjH.jpg",
+    "https://tutorialappbackend.onrender.com/static/english.jpg",
   history:
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwHrywq-qhKrn_w3Q1u4aVmek2QVcP2VuN8g&s",
+    "hhttps://tutorialappbackend.onrender.com/static/history.jpeg",
   geography:
-    "https://dcea.org.uk/parent-information/our-curriculum/subjects/geography/",
+    "https://tutorialappbackend.onrender.com/static/geography.jpegs",
   french: "",
 };
 
