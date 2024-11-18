@@ -177,7 +177,7 @@ const app = new Vue({
 
               window.onclick = (event) => {
                 if (event.target === modal) {
-                  this.cart = [];
+                  this.cart = []; 
                   modal.style.display = "none";
                 }
               };
