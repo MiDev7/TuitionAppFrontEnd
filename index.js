@@ -171,13 +171,12 @@ const app = new Vue({
               this.checkoutBtn = true;
             } else {
               this.title = "Shop";
-              let modal = document.querySelector("#modal");
-
+              let modal = document.querySelector("#modal")
               modal.style.display = "block";
 
               window.onclick = (event) => {
                 if (event.target === modal) {
-                  this.cart = []; 
+                  this.cart = [];
                   modal.style.display = "none";
                 }
               };
@@ -189,6 +188,11 @@ const app = new Vue({
         };
         postCheckout();
       }
+    },
+    closeModal: function () {
+      this.cart = [];
+      let modal = document.querySelector("#modal")
+      modal.style.display = "none";
     },
     validation: function () {
       this.nameError = "";

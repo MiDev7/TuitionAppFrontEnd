@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tuition</title>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Pirata+One&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -12,11 +18,7 @@
       <nav>
         <ul id="nav-lists">
           <li class="nav-item">
-            <img
-              src="https://tutorialappbackend.onrender.com/static/logo.png"
-              width="200px"
-              alt="logo"
-            />
+            <h1>After School Tutoring</h1>
           </li>
           <button
             v-if="cart.length > 0"
@@ -28,7 +30,7 @@
         </ul>
       </nav>
       <main>
-        <div class="sidebar">
+        <div class="sidebar" v-if="title === 'Shop'">
           <h3>Sort By</h3>
           <form action="#" id="sort">
             <div>
@@ -111,25 +113,12 @@
               <div style="width: 100%; display: flex; margin-block: 10px">
                 <input
                   type="text"
+                  id="searchInput"
                   v-model="searchQuery"
                   placeholder="Search for a subject"
-                  style="
-                    flex: 4;
-                    border-radius: 10px 0px 0px 10px;
-                    height: 35px;
-                  "
                   v-on:input="search"
                 />
-                <button
-                  v-on:click="search"
-                  style="
-                    flex: 1;
-                    border-radius: 0px 10px 10px 0px;
-                    height: 35px;
-                  "
-                >
-                  Search
-                </button>
+                <button v-on:click="search">Search</button>
               </div>
               <div class="grid-container" id="searchResult" v-if="searchMode">
                 <div
@@ -140,10 +129,10 @@
                 >
                   <div class="card-content">
                     <div>
-                      <p>Subject: {{after.subject}}</p>
-                      <p>Location: {{after.location}}</p>
-                      <p>Price: £{{after.price}}</p>
-                      <p>Space: {{after.space}}</p>
+                      <p><strong>Subject:</strong> {{after.subject}}</p>
+                      <p><strong>Location:</strong> {{after.location}}</p>
+                      <p><strong>Price:</strong> £{{after.price}}</p>
+                      <p><strong>Available Seats:</strong> {{after.space}}</p>
                     </div>
                     <div>
                       <img
@@ -169,10 +158,10 @@
               <div class="card" v-for="after in classes" :key="after._id">
                 <div class="card-content">
                   <div>
-                    <p>Subject: {{after.subject}}</p>
-                    <p>Location: {{after.location}}</p>
-                    <p>Price: £{{after.price}}</p>
-                    <p>Space: {{after.space}}</p>
+                    <p><strong>Subject:</strong> {{after.subject}}</p>
+                    <p><strong>Location:</strong> {{after.location}}</p>
+                    <p><strong>Price:</strong> £{{after.price}}</p>
+                    <p><strong>Available Seats:</strong> {{after.space}}</p>
                   </div>
                   <div>
                     <img
@@ -193,16 +182,16 @@
               </div>
             </div>
           </div>
-          <div v-else-if="title === 'Cart' ">
+          <div id="cart-section" v-else-if="title === 'Cart' ">
             <h1 class="title">{{title}}</h1>
             <div class="grid-container">
               <div class="card" v-for="after in cart" :key="after._id">
                 <div class="card-content">
                   <div>
-                    <p>Subject: {{after.subject}}</p>
-                    <p>Location: {{after.location}}</p>
-                    <p>Price: {{after.price}}</p>
-                    <p>Space: {{after.space}}</p>
+                    <p><strong>Subject:</strong> {{after.subject}}</p>
+                    <p><strong>Location:</strong> {{after.location}}</p>
+                    <p><strong>Price:</strong> £{{after.price}}</p>
+                    <p><strong>Available Seats:</strong> {{after.space}}</p>
                   </div>
                   <div>
                     <img
@@ -223,7 +212,7 @@
               </div>
             </div>
             <div>
-              <h2 style="margin-block: 10px">Checkout</h2>
+              <h2>Checkout</h2>
               <div>
                 <p>Total: £{{total}}</p>
                 <!-- Name Input Field -->
@@ -295,6 +284,7 @@
       </main>
       <div id="modal">
         <div class="receipt-container">
+          <div class="receipt-close" v-on:click="closeModal" >X</div>
           <div class="receipt-header">
             <h1>Receipt {{new Date().toLocaleString()}}</h1>
             <div class="receipt-header-container">
