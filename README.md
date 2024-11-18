@@ -34,9 +34,9 @@ This project is a web-based platform for managing after-school tutoring classes.
 
 ```bash
 
-git clone <git@github.com:MiDev7/TuitionAppFrontEnd.git>
+git clone git@github.com:MiDev7/TuitionAppFrontEnd.git
 
-cd <TuitionAppFrontEnd>
+cd TuitionAppFrontEnd
 
 ```
 
