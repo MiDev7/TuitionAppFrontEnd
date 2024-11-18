@@ -379,6 +379,14 @@
 
             let cartItem = this.cart.find((item) => item._id === newClass._id);
 
+            if (this.searchMode) {
+              this.classes.forEach((element) => {
+                if (element._id === newClass._id) {
+                  element.space = newClass.space;
+                }
+              });
+            }
+
             if (cartItem) {
               cartItem.space++;
             } else {
@@ -437,6 +445,7 @@
           toggleSectionChange: function () {
             if (this.title === "Shop") {
               this.title = "Cart";
+              this.searchMode = false;
             } else if (this.title === "Cart") {
               this.title = "Shop";
             }
@@ -506,11 +515,14 @@
                     }
                   );
 
+                  // Reset form
                   const data = await response.json();
                   if (data.message === "Class already booked with that name") {
                     alert("Class already booked with that name");
                     this.name = "";
                     this.phone = "";
+                    this.email = "";
+                    this.address = "";
                     this.checkoutBtn = true;
                   } else {
                     this.title = "Shop";
@@ -520,6 +532,7 @@
                     window.onclick = (event) => {
                       if (event.target === modal) {
                         this.cart = [];
+                        this.searchMode = false;
                         modal.style.display = "none";
                       }
                     };
@@ -535,6 +548,7 @@
           // Close modal
           closeModal: function () {
             this.cart = [];
+            this.searchMode = false;
             let modal = document.querySelector("#modal");
             modal.style.display = "none";
           },
@@ -622,6 +636,15 @@
               } else {
                 this.noResult = false;
                 this.searchResult = data;
+
+                // Update space
+                this.classes.forEach((element) => {
+                  this.searchResult.forEach((item) => {
+                    if (element._id === item._id) {
+                      item.space = element.space;
+                    }
+                  });
+                });
               }
             } catch (error) {
               console.error(error);
@@ -630,7 +653,6 @@
           // Search click function
           searchClick: function () {
             if (this.searchQuery === "") {
-              this.searchMode = false;
               alert("Search field is empty");
             } else {
               this.search();
