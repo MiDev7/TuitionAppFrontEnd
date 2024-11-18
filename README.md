@@ -20,11 +20,11 @@ This project is a web-based platform for managing after-school tutoring classes.
 
 ## Technologies Used
 
-- \***\*Frontend\*\***: HTML5, CSS3, Vue.js
+- **Frontend**: HTML5, CSS3, Vue.js
 
-- \***\*Backend API\*\***: REST API integration for data fetching and posting.
+- **Backend API**: REST API integration for data fetching and posting.
 
-- \***\*Styling\*\***: Google Fonts, CSS Variables, and custom styles.
+- **Styling**: Google Fonts, CSS Variables, and custom styles.
 
 ---
 
