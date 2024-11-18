@@ -244,6 +244,10 @@ input[type="radio"]:checked {
     padding: 2px
 }
 
+strong {
+    font-weight: 900g;
+}
+
 #searchInput {
     margin-bottom: 10px;
     flex: 4;
