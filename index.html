@@ -20,7 +20,7 @@
           </li>
           <button
             v-if="cart.length > 0"
-            @click="ToggleSectionChange"
+            v-on:click="ToggleSectionChange"
             style="width: 100px"
           >
             {{buttonName}}
@@ -38,7 +38,7 @@
                 name="sort"
                 value="subject"
                 v-model="selectedValue"
-                @change="sortClasses"
+                v-on:change="sortClasses"
               />
               <label for="subject">Subject</label>
             </div>
@@ -49,7 +49,7 @@
                 name="sort"
                 value="location"
                 v-model="selectedValue"
-                @change="sortClasses"
+                v-on:change="sortClasses"
               />
               <label for="Location">Location</label>
             </div>
@@ -60,7 +60,7 @@
                 name="sort"
                 value="price"
                 v-model="selectedValue"
-                @change="sortClasses"
+                v-on:change="sortClasses"
               />
               <label for="Price">Price</label>
             </div>
@@ -71,7 +71,7 @@
                 name="sort"
                 value="availability"
                 v-model="selectedValue"
-                @change="sortClasses"
+                v-on:change="sortClasses"
               />
               <label for="availability">Availability</label>
             </div>
@@ -86,7 +86,7 @@
                 name="order"
                 value="ascending"
                 v-model="selectedSortOrder"
-                @change="sortClasses"
+                v-on:change="sortClasses"
               />
               <label for="ascending">Ascending</label>
             </div>
@@ -97,7 +97,7 @@
                 name="order"
                 value="descending"
                 v-model="selectedSortOrder"
-                @change="sortClasses"
+                v-on:change="sortClasses"
               />
               <label for="descending">Descending</label>
             </div>
@@ -118,10 +118,10 @@
                     border-radius: 10px 0px 0px 10px;
                     height: 35px;
                   "
-                  @input="search"
+                  v-on:input="search"
                 />
                 <button
-                  @click="search"
+                  v-on:click="search"
                   style="
                     flex: 1;
                     border-radius: 0px 10px 10px 0px;
@@ -156,7 +156,7 @@
                   </div>
                   <button
                     id="addToCart"
-                    @click="AddToCart(after)"
+                    v-on:click="AddToCart(after)"
                     :disabled="after.space === 0"
                   >
                     Add To Cart
@@ -185,7 +185,7 @@
                 </div>
                 <button
                   id="addToCart"
-                  @click="AddToCart(after)"
+                  v-on:click="AddToCart(after)"
                   :disabled="after.space === 0"
                 >
                   Add To Cart
@@ -215,7 +215,7 @@
                 </div>
                 <button
                   id="removeToCart"
-                  @click="RemoveToCart(after)"
+                  v-on:click="RemoveToCart(after)"
                   :disabled="after.space === 0"
                 >
                   Remove
@@ -235,7 +235,7 @@
                       type="text"
                       v-model="name"
                       placeholder="Enter your name"
-                      @input="validation"
+                      v-on:input="validation"
                     />
                     <small v-if="nameError" class="errorMessage"
                       >{{nameError}}</small
@@ -249,7 +249,7 @@
                       type="text"
                       v-model="phone"
                       placeholder="Enter your phone number"
-                      @input="validation"
+                      v-on:input="validation"
                     />
                     <small v-if="phoneError" class="errorMessage"
                       >{{phoneError}}</small
@@ -263,7 +263,7 @@
                       type="text"
                       v-model="email"
                       placeholder="Enter your email"
-                      @input="validation"
+                      v-on:input="validation"
                     />
                     <small v-if="emailError" class="errorMessage"
                       >{{emailError}}</small
@@ -277,13 +277,13 @@
                       type="text"
                       v-model="address"
                       placeholder="Enter your address"
-                      @input="validation"
+                      v-on:input="validation"
                     />
                     <small v-if="addressError" class="errorMessage"
                       >{{addressError}}</small
                     >
                   </div>
-                  <button @click="Checkout" :disabled="checkoutBtn">
+                  <button v-on:click="Checkout" :disabled="checkoutBtn">
                     Checkout
                   </button>
                 </div>
