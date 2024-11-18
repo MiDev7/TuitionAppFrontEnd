@@ -47,10 +47,16 @@ a {
     font-weight: 200;
 }
 
+#app {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
 
 main {
     display: flex;
-    height: 100vh;
+    position: relative;
+    height: 100%;
     padding: 10px;
 }
 
@@ -74,12 +80,19 @@ main {
 }
 
 .content {
+    position: relative;
+    height: 100%;
     padding-inline: 10px;
     flex: 5;
 }
-
+#store {
+    display: relative;
+    width: 100%;
+    margin: 20px;
+}
 .grid-container {
     display: grid;
+    position: relative;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 10px;
 }
@@ -227,4 +240,13 @@ th, td {
 .receipt-footer {
     padding: 10px;
     text-align: center;
+}
+
+footer {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    background-color: var(--primary-color);
+    color: var(--white-color);
 }
