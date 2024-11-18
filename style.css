@@ -190,6 +190,11 @@ button:hover:before {
     left: 100%;
 }
 
+button:active:disabled {
+    transform: none;
+    box-shadow: 4px 4px var(--black-color);
+}
+
 #cart-section {
     margin-inline: 100px;
 }
